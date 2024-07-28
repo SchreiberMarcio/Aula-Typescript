@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 function calcularMedia(nota1, nota2) {
     const media = (nota1 + nota2) / 2;
     const aprovado = media >= 6;

@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./dist/ex2.js",
+    "start": "node ./dist/ex7.js",
     "build": "tsc"
   },
   "keywords": [],
