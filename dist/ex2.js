@@ -1,33 +1,28 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function calcularMediaSimples(nota1, nota2) {
-    const media = (nota1 + nota2) / 2;
-    const aprovado = media >= 6;
-    return {
-        media,
-        aprovado
-    };
-}
 function calcularMediaPonderada(notasPesos) {
-    let somaNotasPesos = 0;
-    let somaPesos = 0;
+    let somaNotasPonderadas = 0;
+    const numeroNotas = notasPesos.length;
     for (const np of notasPesos) {
-        somaNotasPesos += np.nota * np.peso;
-        somaPesos += np.peso;
+        somaNotasPonderadas += np.nota * np.peso;
     }
-    const mediaPonderada = somaNotasPesos / somaPesos;
-    const aprovado = mediaPonderada >= 6;
-    return {
-        mediaPonderada,
-        aprovado
-    };
+    const mediaPonderada = somaNotasPonderadas / numeroNotas;
+    const expressao = notasPesos
+        .map((np, index) => `(N${index + 1}*P${index + 1})`)
+        .join(' + ');
+    return `${expressao} / ${numeroNotas} = ${mediaPonderada.toFixed(2)}`;
 }
-const resultadoSimples = calcularMediaSimples(7, 5);
-console.log('Resultado Simples:', resultadoSimples.media.toFixed(2));
-const notasPesos = [
-    { nota: 7, peso: 2 },
-    { nota: 5, peso: 3 },
-    { nota: 8, peso: 1 }
+// Exemplo de uso:
+const notasPesos1 = [
+    { nota: 8, peso: 2 },
+    { nota: 7, peso: 3 }
 ];
-const resultadoPonderado = calcularMediaPonderada(notasPesos);
-console.log('Resultado Ponderado:', resultadoPonderado.mediaPonderada.toFixed(2));
+const notasPesos2 = [
+    { nota: 8, peso: 2 },
+    { nota: 7, peso: 3 },
+    { nota: 9, peso: 5 }
+];
+const resultado1 = calcularMediaPonderada(notasPesos1);
+const resultado2 = calcularMediaPonderada(notasPesos2);
+console.log(`Resultado: ${resultado1}`);
+console.log(`Resultado: ${resultado2}`);

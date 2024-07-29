@@ -1,45 +1,36 @@
-import { ResultadoSimples, ResultadoMediaPonderada, NotaPeso } from "./types";
+import { NotaPeso } from "./types";
 
-function calcularMediaSimples(nota1: number, nota2: number): ResultadoSimples {
-  const media = (nota1 + nota2) / 2;
-  const aprovado = media >= 6;
 
-  return {
-    media,
-    aprovado,
-  };
-}
-
-function calcularMediaPonderada(
-  notasPesos: NotaPeso[]
-): ResultadoMediaPonderada {
-  let somaNotasPesos = 0;
-  let somaPesos = 0;
+function calcularMediaPonderada(notasPesos: NotaPeso[]): string {
+  let somaNotasPonderadas = 0;
+  const numeroNotas = notasPesos.length;
 
   for (const np of notasPesos) {
-    somaNotasPesos += np.nota * np.peso;
-    somaPesos += np.peso;
+    somaNotasPonderadas += np.nota * np.peso;
   }
 
-  const mediaPonderada = somaNotasPesos / somaPesos;
-  const aprovado = mediaPonderada >= 6;
+  const mediaPonderada = somaNotasPonderadas / numeroNotas;
+  const expressao = notasPesos
+    .map((np, index) => `(N${index + 1}*P${index + 1})`)
+    .join(' + ');
 
-  return {
-    mediaPonderada,
-    aprovado,
-  };
+  return `${expressao} / ${numeroNotas} = ${mediaPonderada.toFixed(2)}`;
 }
 
-const resultadoSimples = calcularMediaSimples(7, 5);
-console.log("Resultado Simples:", resultadoSimples.media.toFixed(2));
-const notasPesos: NotaPeso[] = [
-  { nota: 7, peso: 2 },
-  { nota: 5, peso: 3 },
-  { nota: 8, peso: 1 },
+
+const notasPesos1: NotaPeso[] = [
+  { nota: 8, peso: 2 },
+  { nota: 7, peso: 3 }
 ];
 
-const resultadoPonderado = calcularMediaPonderada(notasPesos);
-console.log(
-  "Resultado Ponderado:",
-  resultadoPonderado.mediaPonderada.toFixed(2)
-);
+const notasPesos2: NotaPeso[] = [
+  { nota: 8, peso: 2 },
+  { nota: 7, peso: 3 },
+  { nota: 9, peso: 5 }
+];
+
+const resultado1 = calcularMediaPonderada(notasPesos1);
+const resultado2 = calcularMediaPonderada(notasPesos2);
+
+console.log(`Resultado: ${resultado1}`);
+console.log(`Resultado: ${resultado2}`);

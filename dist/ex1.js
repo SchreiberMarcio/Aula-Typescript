@@ -5,8 +5,9 @@ function calcularMedia(nota1, nota2) {
     const aprovado = media >= 6;
     return {
         media,
-        aprovado
+        aprovado,
     };
 }
 const resultado = calcularMedia(7, 5);
-console.log(resultado);
+const status = resultado.aprovado ? "Aprovado" : "Reprovado";
+console.log(`Média: ${resultado.media}, Status: ${status}`);
